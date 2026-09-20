@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">La Jolla Games placeholder artwork</title>
+  <desc id="desc">Abstract coastal horizon and race lanes.</desc>
+  <rect width="1600" height="1000" fill="#080808"/>
+  <path d="M0 380C260 310 460 450 720 390s470-35 880 30v580H0Z" fill="#151515"/>
+  <path d="M0 380C260 310 460 450 720 390s470-35 880 30" fill="none" stroke="#555" stroke-width="3"/>
+  <path d="m1600 1000-560-610M1320 1000 920 455M1040 1000 800 505M760 1000 675 545" stroke="#383838" stroke-width="3"/>
+  <circle cx="1230" cy="230" r="120" fill="none" stroke="#444" stroke-width="2"/>
+  <text x="70" y="115" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="8">LA JOLLA / PLACEHOLDER 04</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Icahn Memorial placeholder artwork</title>
+  <desc id="desc">Abstract stadium lights and track markings.</desc>
+  <rect width="1600" height="1000" fill="#080808"/>
+  <path d="M120 0v1000M360 0v1000M600 0v1000M840 0v1000M1080 0v1000M1320 0v1000" stroke="#262626" stroke-width="2"/>
+  <path d="M0 720Q800 330 1600 720M0 845Q800 455 1600 845M0 970Q800 580 1600 970" fill="none" stroke="#555" stroke-width="3"/>
+  <circle cx="800" cy="245" r="95" fill="#f5f5f5" opacity=".08"/>
+  <circle cx="800" cy="245" r="8" fill="#f5f5f5"/>
+  <text x="70" y="115" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="8">ICAHN / PLACEHOLDER 02</text>
+</svg>

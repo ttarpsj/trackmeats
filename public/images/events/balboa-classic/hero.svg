@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Balboa Classic placeholder artwork</title>
+  <desc id="desc">Abstract black and gray running track lanes.</desc>
+  <rect width="1600" height="1000" fill="#090909"/>
+  <circle cx="1320" cy="220" r="520" fill="none" stroke="#303030" stroke-width="90"/>
+  <circle cx="1320" cy="220" r="390" fill="none" stroke="#202020" stroke-width="2"/>
+  <circle cx="1320" cy="220" r="300" fill="none" stroke="#444" stroke-width="2"/>
+  <path d="M-120 1120 690 270M75 1120 810 350M285 1120 925 430" fill="none" stroke="#303030" stroke-width="3"/>
+  <path d="M0 820h1600" stroke="#f5f5f5" stroke-width="2" opacity=".35"/>
+  <text x="70" y="115" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="8">BALBOA / PLACEHOLDER 01</text>
+</svg>

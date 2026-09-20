@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">M10KE placeholder artwork</title>
+  <desc id="desc">Abstract lap counter and distance markings.</desc>
+  <rect width="1600" height="1000" fill="#070707"/>
+  <rect x="390" y="175" width="820" height="650" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M0 180h1600M0 500h1600M0 820h1600M400 0v1000M800 0v1000M1200 0v1000" stroke="#222" stroke-width="2"/>
+  <text x="800" y="670" text-anchor="middle" fill="#f5f5f5" opacity=".13" font-family="Arial, sans-serif" font-size="520" font-weight="900">10</text>
+  <path d="M145 890h1310" stroke="#f5f5f5" stroke-width="3" opacity=".5"/>
+  <text x="70" y="115" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="8">M10KE / PLACEHOLDER 03</text>
+</svg>
