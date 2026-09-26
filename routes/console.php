@@ -15,11 +15,13 @@ Artisan::command('site:export {--base-path= : Optional URL prefix for a GitHub p
     $outputPath = base_path('dist');
     $routes = ['/' => 'index.html'];
 
-    foreach (array_keys(config('events')) as $slug) {
-        $routes['/'.$slug] = $slug.'/index.html';
+    if (! File::isFile(public_path('build/manifest.json'))) {
+        $this->error('Build the frontend assets with npm run build before exporting.');
+
+        return 1;
     }
 
-    config(['site.base_path' => $basePath]);
+    config(['site.base_path' => $basePath, 'site.exporting' => true]);
 
     if (File::isDirectory($outputPath)) {
         File::deleteDirectory($outputPath);
@@ -48,6 +50,17 @@ Artisan::command('site:export {--base-path= : Optional URL prefix for a GitHub p
         $kernel->terminate($request, $response);
         $this->line("Exported {$uri}");
     }
+
+    // Static hosts cannot execute Laravel's compatibility redirects.
+    foreach (config('site.legacy_paths') as $slug) {
+        $destination = $outputPath.DIRECTORY_SEPARATOR.$slug;
+        File::ensureDirectoryExists($destination);
+        $url = htmlspecialchars(site_url(), ENT_QUOTES, 'UTF-8');
+        File::put($destination.DIRECTORY_SEPARATOR.'index.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url='.$url.'"><title>Event page moved</title></head><body><p>This site now presents one event. <a href="'.$url.'">Visit the event homepage</a>.</p></body></html>');
+    }
+
+    File::ensureDirectoryExists($outputPath.DIRECTORY_SEPARATOR.'downloads');
+    File::put($outputPath.DIRECTORY_SEPARATOR.'downloads'.DIRECTORY_SEPARATOR.'press-note.txt', view('events.press-note', ['event' => config('events')])->render());
 
     foreach (['images', 'build'] as $directory) {
         $source = public_path($directory);
