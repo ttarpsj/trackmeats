@@ -23,7 +23,7 @@
     <header class="site-header" id="top">
         <div class="header-top shell">
             <div class="header-socials"><x-social-links :socials="$event['socials']" /></div>
-            <a class="wordmark" href="{{ site_url() }}" aria-label="{{ $event['brand'] }} home">{{ $event['brand'] }}<span aria-hidden="true">↗</span></a>
+            <a class="wordmark" href="{{ site_url() }}" aria-label="{{ $event['brand'] }} home"><img class="wordmark-logo" src="{{ site_url('images/trackmeats.svg') }}" alt=""></a>
             <div class="header-actions">
                 <a class="button button-outline" href="{{ $event['registration_url'] ?? '#entry' }}">Register</a>
                 <a class="button button-outline" href="{{ $event['tickets_url'] ?? '#entry' }}">Tickets</a>
