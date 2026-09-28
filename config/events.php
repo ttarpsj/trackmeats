@@ -4,11 +4,11 @@
 // Asset paths are relative to public/. Optional URLs stay null until configured.
 return [
     'brand' => 'Track Meats',
-    'name' => 'Balboa Classic',
-    'name_lines' => ['Balboa', 'Classic'],
-    'date' => '4–5 June 2027',
-    'location' => 'The West Coast',
-    'venue' => 'Coastline Oval',
+    'name' => 'Track Meats',
+    'name_lines' => ['Track', 'Meats'],
+    'date' => 'Every Friday',
+    'location' => 'United States of America',
+    'venue' => 'United States of America',
     'venue_note' => 'An imagined outdoor arena. No real venue affiliation.',
     'tagline' => 'Battle for the belt.',
     'description' => 'An independent celebration of fast racing, close competition and trackside culture. One oval. Every kind of runner.',

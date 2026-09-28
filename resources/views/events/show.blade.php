@@ -3,7 +3,7 @@
     <img class="hero-photo" src="{{ site_url($event['hero_image']) }}" alt="{{ $event['hero_alt'] }}" width="1672" height="941" fetchpriority="high">
     <div class="hero-shade" aria-hidden="true"></div>
     <div class="hero-content shell">
-        <p class="eyebrow hero-kicker">Independent track & field · {{ $event['location'] }}</p>
+        <p class="eyebrow hero-kicker">track & field · Amateurs & Professionals</p>
         <h1 id="event-title">@foreach ($event['name_lines'] as $line)<span>{{ $line }}</span>@endforeach</h1>
         <div class="hero-meta"><p>{{ $event['date'] }}</p><span aria-hidden="true">/</span><p>{{ $event['venue'] }}</p></div>
         <a class="hero-cta" href="#information">Find your place on the line <span aria-hidden="true">↗</span></a>
@@ -16,7 +16,7 @@
         <div class="section-overline"><p class="eyebrow">01 / The meet</p><p class="eyebrow">{{ $event['date'] }} · Demonstration</p></div>
         <h2 id="intro-title">@foreach ($event['intro_heading'] as $line)<span>{{ $line }}</span>@endforeach</h2>
         <div class="intro-copy"><p class="intro-lead">{{ $event['description'] }}</p><div>@foreach ($event['intro'] as $paragraph)<p>{{ $paragraph }}</p>@endforeach</div></div>
-        <div class="action-strip"><a href="{{ $event['registration_url'] ?? '#entry' }}">Register <span>↗</span></a><a href="{{ $event['tickets_url'] ?? '#entry' }}">Tickets <span>↗</span></a><a href="{{ $event['results_url'] ?? '#results' }}">Results <span>↗</span></a><a href="{{ $event['watch_url'] ?? '#media' }}">{{ $event['watch_url'] ? 'Watch' : 'Media' }} <span>↗</span></a></div>
+        <div class="action-strip"><a href="{{ $event['registration_url'] ?? '#entry' }}">Register <span>↗</span></a><a href="{{ $event['tickets_url'] ?? '#entry' }}">Watch <span>↗</span></a><a href="{{ $event['results_url'] ?? '#results' }}">Results <span>↗</span></a></div>
         <p class="demo-note">{{ $event['demo_notice'] }}</p>
     </div>
 </section>
@@ -70,10 +70,8 @@
                 @endforeach
             </div>
         </div>
-        <div class="entry-status" id="entry"><div><p class="eyebrow">Your place on the line</p><h3>See you at the start.</h3></div><div><p>This is a fictional event showcase. Registration and ticket sales are not open.</p><div class="entry-actions">@if ($event['registration_url'])<a class="text-link" href="{{ $event['registration_url'] }}">Register ↗</a>@else<span>Registration · Not open</span>@endif @if ($event['tickets_url'])<a class="text-link" href="{{ $event['tickets_url'] }}">Tickets ↗</a>@else<span>Tickets · Not on sale</span>@endif</div></div></div>
+        <div class="entry-status" id="entry"><div><p class="eyebrow">Your place on the line</p><h3>See you at the start.</h3></div><div><p>This is a fictional event showcase. Registration and ticket sales are not open.</p><div class="entry-actions">@if ($event['registration_url'])<a class="text-link" href="{{ $event['registration_url'] }}">Register ↗</a>@else<span>Registration · Not open</span>@endif @if ($event['tickets_url'])<a class="text-link" href="{{ $event['tickets_url'] }}">Watch ↗</a>@else<span>Watch · Not on sale</span>@endif</div></div></div>
     </div>
 </section>
 
 <section class="results section-light" id="results" aria-labelledby="results-title"><div class="shell results-layout"><div><p class="eyebrow">04 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<details><summary><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span><span class="plus" aria-hidden="true">+</span></summary><div class="archive-content"><p class="fine-print">Illustrative winners — all names and times are fictional.</p><table><caption class="sr-only">{{ $edition['year'] }} demonstration results</caption><thead><tr><th scope="col">Race</th><th scope="col">Athlete</th><th scope="col">Time</th></tr></thead><tbody>@foreach ($edition['rows'] as $result)<tr><th scope="row">{{ $result['race'] }}</th><td>{{ $result['athlete'] }}</td><td>{{ $result['time'] }}</td></tr>@endforeach</tbody></table></div></details>@endforeach</div></div></section>
-
-<section class="media-wrap section-light" id="media" aria-labelledby="media-title"><div class="shell media-block section-dark"><div><p class="eyebrow">05 / Tell the story</p><h2 id="media-title">Media.</h2><p>For the voices<br>behind the race.</p></div><div>@foreach ($event['media'] as $item)<details class="media-detail"><summary>{{ $item['title'] }}<span class="plus" aria-hidden="true">+</span></summary><div><p>{{ $item['body'] }}</p>@if (!empty($item['download']))<a class="text-link" href="{{ site_url('downloads/press-note.txt') }}" download>Download concept press note (.txt) ↓</a>@endif</div></details>@endforeach @if ($event['contact_email'])<a class="text-link" href="mailto:{{ $event['contact_email'] }}">Contact the organizer ↗</a>@endif</div></div></section>
