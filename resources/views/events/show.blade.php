@@ -5,17 +5,23 @@
     <div class="hero-content shell">
         <p class="eyebrow hero-kicker">track & field · Amateurs & Professionals</p>
         <h1 id="event-title">@foreach ($event['name_lines'] as $line)<span>{{ $line }}</span>@endforeach</h1>
-        <div class="hero-meta"><p>{{ $event['date'] }}</p><span aria-hidden="true">/</span><p>{{ $event['venue'] }}</p></div>
+        <div class="hero-meta"><p>Every Friday Night</p><span aria-hidden="true">/</span><p>Jun 4th - Aug 30th</p></div>
         <a class="hero-cta" href="#information">Find your place on the line <span aria-hidden="true">↗</span></a>
     </div>
-    <div class="hero-bottom shell"><p>{{ $event['tagline'] }}</p><span>Fictional event · Demo edition</span><a href="#about" aria-label="Discover the meet">↓</a></div>
+    <div class="hero-bottom shell">
+        <img class="hero-label" src="{{ site_url('images/worldathleticslabel.svg') }}" alt="World Athletics label">
+        <div class="hero-bottom-meta">
+            <span>Fictional event · Demo edition</span>
+            <a href="#about" aria-label="Discover the meats">↓</a>
+        </div>
+    </div>
 </section>
 
 <section class="intro section-light" id="about" aria-labelledby="intro-title">
     <div class="shell">
-        <div class="section-overline"><p class="eyebrow">01 / The meet</p><p class="eyebrow">{{ $event['date'] }} · Demonstration</p></div>
+        <div class="section-overline"><p class="eyebrow">01 / The Meats</p><p class="eyebrow">Fridays From June–August · Around the Nation</p></div>
         <h2 id="intro-title">@foreach ($event['intro_heading'] as $line)<span>{{ $line }}</span>@endforeach</h2>
-        <div class="intro-copy"><p class="intro-lead">{{ $event['description'] }}</p><div>@foreach ($event['intro'] as $paragraph)<p>{{ $paragraph }}</p>@endforeach</div></div>
+        <div class="intro-copy"><p class="intro-lead">{{ $event['intro_lead'] }}</p><div>@foreach ($event['intro'] as $paragraph)<p>{{ $paragraph }}</p>@endforeach<p class="intro-lead">{{ $event['intro_closing'] }}</p></div></div>
         <div class="action-strip"><a href="{{ $event['registration_url'] ?? '#entry' }}">Register <span>↗</span></a><a href="{{ $event['tickets_url'] ?? '#entry' }}">Watch <span>↗</span></a><a href="{{ $event['results_url'] ?? '#results' }}">Results <span>↗</span></a></div>
         <p class="demo-note">{{ $event['demo_notice'] }}</p>
     </div>
@@ -24,20 +30,29 @@
 <section class="schedule section-dark" id="schedule" aria-labelledby="schedule-title">
     <div class="shell schedule-layout">
         <div class="section-heading"><p class="eyebrow">02 / On the clock</p><h2 id="schedule-title">One track.<br> All in.</h2><p>{{ $event['schedule_note'] }}</p><span class="vertical-caption">The competition schedule</span></div>
-        <div class="schedule-content" data-tabs>
-            <div class="schedule-tabs" role="tablist" aria-label="Competition schedule">
-                @foreach (['amateur' => 'Amateur', 'elite' => 'Elite'] as $division => $label)
-                    <button type="button" id="schedule-tab-{{ $division }}" role="tab" aria-selected="{{ $division === 'elite' ? 'true' : 'false' }}" aria-controls="schedule-{{ $division }}" tabindex="{{ $division === 'elite' ? '0' : '-1' }}">{{ $label }}</button>
-                @endforeach
+        <div class="schedule-content" data-schedule-cities>
+            <div class="schedule-city-selector" role="group" aria-label="Meet city">
+                <button type="button" class="schedule-city-control" data-schedule-city-previous aria-label="Previous city">←</button>
+                <p class="schedule-city-name" data-schedule-city-name aria-live="polite">{{ $event['meet_locations']['chicago']['label'] }}</p>
+                <button type="button" class="schedule-city-control" data-schedule-city-next aria-label="Next city">→</button>
             </div>
-            @foreach ($event['schedule'] as $division => $races)
-                <div id="schedule-{{ $division }}" role="tabpanel" aria-labelledby="schedule-tab-{{ $division }}" tabindex="0" @if ($division !== 'elite') hidden @endif>
-                    <p class="session-label">{{ $event['sessions'][$division] }} <span>Demo timetable</span></p>
-                    <table class="timetable"><caption class="sr-only">{{ ucfirst($division) }} competition timetable — illustrative times</caption><thead><tr><th scope="col">Start</th><th scope="col">Discipline</th><th scope="col">Category / Round</th></tr></thead><tbody>
-                    @foreach ($races as $race)
-                        <tr><th scope="row" class="race-time">{{ $race['time'] }}</th><td class="race-name">{{ $race['event'] }}</td><td class="race-detail">{{ $race['division'] }}@if (!empty($race['heat']))<span>{{ $race['heat'] }}</span>@endif @if (!empty($race['note']))<small>{{ $race['note'] }}</small>@endif</td></tr>
+            @foreach ($event['meet_locations'] as $city => $meet)
+                <div class="schedule-city" id="schedule-city-{{ $city }}" data-city-name="{{ $meet['label'] }}" data-tabs @if (!$loop->first) hidden @endif>
+                    <div class="schedule-tabs" role="tablist" aria-label="{{ $meet['label'] }} competition schedule">
+                        @foreach (['amateur' => 'Amateur', 'elite' => 'Elite'] as $division => $label)
+                            <button type="button" id="schedule-tab-{{ $city }}-{{ $division }}" role="tab" aria-selected="{{ $division === 'elite' ? 'true' : 'false' }}" aria-controls="schedule-{{ $city }}-{{ $division }}" tabindex="{{ $division === 'elite' ? '0' : '-1' }}">{{ $label }}</button>
+                        @endforeach
+                    </div>
+                    @foreach ($meet['schedule'] as $division => $races)
+                        <div id="schedule-{{ $city }}-{{ $division }}" role="tabpanel" aria-labelledby="schedule-tab-{{ $city }}-{{ $division }}" tabindex="0" @if ($division !== 'elite') hidden @endif>
+                            <p class="session-label">{{ $division === 'amateur' ? $event['opening_events_session'] : $meet['sessions'][$division] }} <span>Demo timetable</span></p>
+                            <table class="timetable"><caption class="sr-only">{{ $meet['label'] }} {{ ucfirst($division) }} competition timetable — illustrative times</caption><thead><tr><th scope="col">Start</th><th scope="col">Discipline</th><th scope="col">Category / Round</th><th scope="col" class="race-starting-list-heading">Starting list</th></tr></thead><tbody>
+                            @foreach ($division === 'amateur' ? $event['opening_events'] : $races as $race)
+                                <tr @if ($division === 'amateur') class="amateur-row" @endif><th scope="row" class="race-time">{{ $race['time'] }}</th><td class="race-name">{{ $race['event'] }}@if ($division === 'amateur' && !empty($race['note']))<small class="race-note">{{ $race['note'] }}</small>@endif</td><td class="race-detail">{{ $race['division'] }}@if (!empty($race['heat']))<span>{{ $race['heat'] }}</span>@endif @if ($division !== 'amateur' && !empty($race['note']))<small>{{ $race['note'] }}</small>@endif</td><td class="race-starting-list"><button type="button" data-starting-list-toggle aria-label="Starting list for {{ $race['event'] }} {{ $race['heat'] ?? '' }}" aria-pressed="false"><span aria-hidden="true">›</span></button></td></tr>
+                            @endforeach
+                            </tbody></table>
+                        </div>
                     @endforeach
-                    </tbody></table>
                 </div>
             @endforeach
         </div>
@@ -49,12 +64,16 @@
 <section class="information section-light" id="information" aria-labelledby="information-title">
     <div class="shell">
         <div class="section-overline"><p class="eyebrow">03 / Before the gun</p><p class="eyebrow">The details make the difference</p></div>
-        <h2 class="section-title" id="information-title">Know the meet.</h2>
+        <h2 class="section-title" id="information-title">Know the meats.</h2>
         <div class="information-layout" data-tabs data-information>
-            <div class="info-navigation" role="tablist" aria-label="Event information" aria-orientation="vertical">
-                @foreach ($event['information'] as $key => $info)
-                    <button type="button" id="info-tab-{{ $key }}" role="tab" aria-controls="info-{{ $key }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}" tabindex="{{ $loop->first ? '0' : '-1' }}"><span class="info-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><span>{{ $info['label'] }}</span><span class="info-arrow" aria-hidden="true">↗</span></button>
-                @endforeach
+            <div class="info-mobile-navigation">
+                <button type="button" class="info-mobile-control" data-information-previous aria-label="Previous event information">←</button>
+                <div class="info-navigation" role="tablist" aria-label="Event information" aria-orientation="vertical">
+                    @foreach ($event['information'] as $key => $info)
+                        <button type="button" id="info-tab-{{ $key }}" role="tab" aria-controls="info-{{ $key }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}" tabindex="{{ $loop->first ? '0' : '-1' }}"><span class="info-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><span>{{ $info['label'] }}</span><span class="info-arrow" aria-hidden="true">↗</span></button>
+                    @endforeach
+                </div>
+                <button type="button" class="info-mobile-control" data-information-next aria-label="Next event information">→</button>
             </div>
             <div class="info-panels">
                 @foreach ($event['information'] as $key => $info)
@@ -70,8 +89,8 @@
                 @endforeach
             </div>
         </div>
-        <div class="entry-status" id="entry"><div><p class="eyebrow">Your place on the line</p><h3>See you at the start.</h3></div><div><p>This is a fictional event showcase. Registration and ticket sales are not open.</p><div class="entry-actions">@if ($event['registration_url'])<a class="text-link" href="{{ $event['registration_url'] }}">Register ↗</a>@else<span>Registration · Not open</span>@endif @if ($event['tickets_url'])<a class="text-link" href="{{ $event['tickets_url'] }}">Watch ↗</a>@else<span>Watch · Not on sale</span>@endif</div></div></div>
+        <div class="entry-status" id="entry"><div><p class="eyebrow">Your place on the line</p><h3>See you at the start.</h3></div><div><p>This is a fictional event showcase. Registration and ticket sales are not open.</p><div class="entry-actions">@if ($event['registration_url'])<a class="text-link" href="{{ $event['registration_url'] }}">Register ↗</a>@else<span>Registration · Open 1 May 2027</span>@endif @if ($event['tickets_url'])<a class="text-link" href="{{ $event['tickets_url'] }}">Watch ↗</a>@else<span>Watch · Free Stream on YoutTube / Visit the Venue</span>@endif</div></div></div>
     </div>
 </section>
 
-<section class="results section-light" id="results" aria-labelledby="results-title"><div class="shell results-layout"><div><p class="eyebrow">04 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<details><summary><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span><span class="plus" aria-hidden="true">+</span></summary><div class="archive-content"><p class="fine-print">Illustrative winners — all names and times are fictional.</p><table><caption class="sr-only">{{ $edition['year'] }} demonstration results</caption><thead><tr><th scope="col">Race</th><th scope="col">Athlete</th><th scope="col">Time</th></tr></thead><tbody>@foreach ($edition['rows'] as $result)<tr><th scope="row">{{ $result['race'] }}</th><td>{{ $result['athlete'] }}</td><td>{{ $result['time'] }}</td></tr>@endforeach</tbody></table></div></details>@endforeach</div></div></section>
+<section class="results section-light" id="results" aria-labelledby="results-title"><div class="shell results-layout"><div><p class="eyebrow">04 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Results &amp; Records. Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<div class="archive-entry"><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span></div>@endforeach</div></div></section>

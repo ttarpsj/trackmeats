@@ -18,6 +18,25 @@ document.addEventListener('keydown', (event) => {
 });
 matchMedia('(min-width: 1000px)').addEventListener('change', (event) => { if (event.matches) setMenu(false); });
 
+document.querySelectorAll('[data-schedule-cities]').forEach((group) => {
+    const cities = [...group.querySelectorAll('.schedule-city')];
+    const name = group.querySelector('[data-schedule-city-name]');
+    let current = 0;
+    const activate = (index) => {
+        current = (index + cities.length) % cities.length;
+        cities.forEach((city, cityIndex) => { city.hidden = cityIndex !== current; });
+        name.textContent = cities[current].dataset.cityName;
+    };
+    group.querySelector('[data-schedule-city-previous]').addEventListener('click', () => activate(current - 1));
+    group.querySelector('[data-schedule-city-next]').addEventListener('click', () => activate(current + 1));
+});
+
+document.querySelectorAll('[data-starting-list-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+        button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+    });
+});
+
 const informationTabs = new Map();
 document.querySelectorAll('[data-tabs]').forEach((group) => {
     const list = group.querySelector('[role="tablist"]');
@@ -40,6 +59,12 @@ document.querySelectorAll('[data-tabs]').forEach((group) => {
         const updateOrientation = () => list.setAttribute('aria-orientation', matchMedia('(max-width: 700px)').matches ? 'horizontal' : 'vertical');
         updateOrientation();
         matchMedia('(max-width: 700px)').addEventListener('change', updateOrientation);
+        const move = (direction) => {
+            const current = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+            activate(tabs[(current + direction + tabs.length) % tabs.length], true);
+        };
+        group.querySelector('[data-information-previous]').addEventListener('click', () => move(-1));
+        group.querySelector('[data-information-next]').addEventListener('click', () => move(1));
     }
     tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => activate(tab));
