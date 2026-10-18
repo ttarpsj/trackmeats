@@ -62,7 +62,7 @@ Artisan::command('site:export {--base-path= : Optional URL prefix for a GitHub p
     File::ensureDirectoryExists($outputPath.DIRECTORY_SEPARATOR.'downloads');
     File::put($outputPath.DIRECTORY_SEPARATOR.'downloads'.DIRECTORY_SEPARATOR.'press-note.txt', view('events.press-note', ['event' => config('events')])->render());
 
-    foreach (['images', 'build'] as $directory) {
+    foreach (['images', 'videos', 'build'] as $directory) {
         $source = public_path($directory);
 
         if (File::isDirectory($source)) {
