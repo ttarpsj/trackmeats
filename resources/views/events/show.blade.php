@@ -1,6 +1,9 @@
 {{-- The single-event page body. Content lives in config/events.php. --}}
 <section class="hero" aria-labelledby="event-title">
-    <img class="hero-photo" src="{{ site_url($event['hero_image']) }}" alt="{{ $event['hero_alt'] }}" width="1672" height="941" fetchpriority="high">
+    <video class="hero-photo" autoplay loop muted playsinline preload="metadata" poster="{{ site_url($event['hero_image']) }}" aria-hidden="true">
+        <source src="{{ site_url('videos/trackmeats-hero.mp4') }}" type="video/mp4">
+        <img src="{{ site_url($event['hero_image']) }}" alt="">
+    </video>
     <div class="hero-shade" aria-hidden="true"></div>
     <div class="hero-content shell">
         <p class="eyebrow hero-kicker">track & field · Amateurs & Professionals</p>
@@ -59,7 +62,7 @@
     </div>
 </section>
 
-<figure class="race-image"><img src="{{ site_url($event['support_image']) }}" alt="{{ $event['support_alt'] }}" width="1672" height="941" loading="lazy"><figcaption><span>Every second has a story.</span><span>Concept imagery / AI-generated</span></figcaption></figure>
+<figure class="race-image"><img src="{{ site_url('images/trackmeats-banner.jpg') }}" alt="Spectators lining an outdoor track at night." width="1672" height="941" loading="lazy"><figcaption><span>Every second has a story.</span></figcaption></figure>
 
 <section class="information section-light" id="information" aria-labelledby="information-title">
     <div class="shell">
@@ -93,4 +96,44 @@
     </div>
 </section>
 
-<section class="results section-light" id="results" aria-labelledby="results-title"><div class="shell results-layout"><div><p class="eyebrow">04 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Results &amp; Records. Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<div class="archive-entry"><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span></div>@endforeach</div></div></section>
+@if (!empty($event['merchandise']))
+<section class="merchandise-section section-light" id="merchandise" aria-labelledby="merchandise-title">
+    <div class="shell">
+        <div class="section-overline"><p class="eyebrow">04 / Merchandise</p><p class="eyebrow">Limited event editions</p></div>
+        <h2 class="section-title" id="merchandise-title">{{ $event['merchandise']['title'] }}</h2>
+        <div class="merchandise">
+            @foreach ($event['merchandise']['paragraphs'] as $paragraph)<p>{{ $paragraph }}</p>@endforeach
+            <div class="merchandise-carousel" data-merchandise-carousel>
+                <div class="merchandise-viewport" data-merchandise-viewport>
+                    @foreach ($event['merchandise']['images'] as $image)<figure class="merchandise-slide"><img src="{{ site_url($image['path']) }}" alt="{{ $image['alt'] }}" width="1024" height="1280" loading="lazy"></figure>@endforeach
+                </div>
+                <div class="merchandise-controls"><button type="button" data-merchandise-previous aria-label="Previous merchandise image">←</button><button type="button" data-merchandise-next aria-label="Next merchandise image">→</button></div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+<section class="results section-light" id="results" aria-labelledby="results-title">
+    <div class="shell results-layout"><div><p class="eyebrow">05 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Results &amp; Records. Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<div class="archive-entry"><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span></div>@endforeach</div></div>
+</section>
+
+@if (!empty($event['archive_gallery']))
+<section class="gallery-section section-light" id="gallery" aria-labelledby="archive-gallery-title">
+    <div class="shell archive-gallery-section">
+        <p class="eyebrow">06 / Gallery</p>
+        <h2 id="archive-gallery-title">{{ $event['archive_gallery']['title'] }}</h2>
+        <div class="archive-gallery" aria-label="Visual archive">
+            @foreach ($event['archive_gallery']['tiles'] as $tile)
+                <figure class="archive-gallery-tile" data-archive-gallery-tile>
+                    @if (!empty($tile['media']))
+                        @foreach ($tile['media'] as $media)<div class="archive-gallery-layer @if ($loop->first) is-active @endif"><img src="{{ site_url($media['path']) }}" alt="{{ $media['alt'] }}" loading="lazy"></div>@endforeach
+                    @else
+                        @foreach ($event['archive_gallery']['placeholder_colors'] as $color)<span class="archive-gallery-layer archive-gallery-placeholder @if ($loop->first) is-active @endif" style="background-color:{{ $color }}" aria-hidden="true"></span>@endforeach
+                    @endif
+                </figure>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
