@@ -23,7 +23,7 @@
     <header class="site-header" id="top">
         <div class="header-top shell">
             <div class="header-socials"><x-social-links :socials="$event['socials']" /></div>
-            <a class="wordmark" href="{{ site_url() }}" aria-label="{{ $event['brand'] }} home"><img class="wordmark-logo" src="{{ site_url('images/trackmeats.svg') }}" alt=""></a>
+            <a class="wordmark" href="https://ellipsisetc.xyz/pages/contact" aria-label="Contact Ellipsis"><img class="wordmark-logo" src="{{ site_url('images/trackmeats.svg') }}" alt=""></a>
             <div class="header-actions">
                 <a class="button button-outline" href="{{ $event['registration_url'] ?? '#entry' }}">Register</a>
             </div>
@@ -55,7 +55,7 @@
             <div class="footer-links"><p class="eyebrow">{{ $event['name'] }}</p>@foreach ($event['navigation'] as $id => $label)<a href="#{{ $id }}">{{ $label }}</a>@endforeach</div>
             <div id="social-status"><p class="eyebrow">Around the track</p><x-social-links :socials="$event['socials']" /><p class="fine-print">Social channels are placeholders until official profiles are added.</p><p class="organizer">{{ $event['organizer'] }}</p>@if ($event['contact_email'])<a href="mailto:{{ $event['contact_email'] }}">{{ $event['contact_email'] }}</a>@else<p class="fine-print">Organizer contact to be announced.</p>@endif</div>
         </div>
-        <div class="shell footer-wordmark" aria-hidden="true">{{ $event['brand'] }}<img class="footer-meat-logo" src="{{ site_url('images/trackmeats.svg') }}" alt=""></div>
+        <a class="shell footer-wordmark" href="https://ellipsisetc.xyz/pages/contact" aria-label="Contact Ellipsis">{{ $event['brand'] }}<img class="footer-meat-logo" src="{{ site_url('images/trackmeats.svg') }}" alt=""></a>
         <div class="shell footer-bottom"><p>© {{ date('Y') }} {{ $event['brand'] }} · Fictional event / Portfolio concept</p><div><a href="#info-terms" data-info-link="terms">Terms & conditions</a><a href="#info-disclaimer" data-info-link="disclaimer">Disclaimer</a><a href="#top">Back to top ↑</a></div></div>
     </footer>
 </body>

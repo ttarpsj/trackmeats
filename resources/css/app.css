@@ -126,7 +126,6 @@ h1,h2,h3 { line-height:1; }
 .info-panels h3 { font-family:var(--display); font-weight:600; font-size:52px; line-height:1.02; text-transform:uppercase; margin:25px 0; }
 .info-panels article>p:not(.eyebrow) { margin-bottom:22px; color:#56584f; }
 .info-facts { margin-top:36px; }.info-facts>div { display:grid; grid-template-columns:115px 1fr; gap:20px; border-top:1px solid var(--line); padding:15px 0; font-size:12px; }.info-facts dt { font-weight:600; }.info-facts dd { margin:0; color:#62635e; }
-.merchandise-section { padding:76px 0 84px; }.merchandise-section .section-title { margin-bottom:32px; }.merchandise { padding-top:28px; border-top:1px solid var(--line); }.merchandise>p { max-width:630px; margin:0 0 16px; color:#56584f; }.merchandise-carousel { margin-top:26px; }.merchandise-viewport { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }.merchandise-viewport::-webkit-scrollbar { display:none; }.merchandise-slide { flex:0 0 min(82%,440px); aspect-ratio:4/5; margin:0; display:grid; place-items:center; background:#e9e7e0; scroll-snap-align:start; }.merchandise-slide img { width:100%; height:100%; object-fit:contain; }.merchandise-controls { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }.merchandise-controls button { display:grid; width:38px; height:38px; place-items:center; border:1px solid var(--ink); border-radius:50%; background:transparent; color:var(--ink); font-size:20px; line-height:1; }.merchandise-controls button:hover { background:var(--ink); color:var(--paper); }
 .info-list { list-style:decimal; padding-left:20px; }.info-list li { padding:8px 0 8px 8px; color:#56584f; }
 .entry-list { list-style:none; padding:0; margin-top:35px; }.entry-list li { padding:17px 0; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr auto; gap:4px; font-size:12px; }.entry-list small { color:#62635e; }
 .faq { border-bottom:1px solid var(--line); }.faq summary { cursor:pointer; padding:18px 0; font-size:13px; font-weight:600; }.faq p { padding:0 0 20px; font-size:13px; color:#56584f; }
@@ -148,7 +147,7 @@ summary::-webkit-details-marker { display:none; }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
 @media (max-width:999px) { .wordmark-logo { width:46px; } }
 @media (max-width:700px) { .wordmark-logo { width:40px; } }
-@media (max-width:700px) { .merchandise-section { padding:48px 0 55px; }.gallery-section { padding:55px 0; } }
+@media (max-width:700px) { .gallery-section { padding:55px 0; } }
 @media (max-width:999px) { .archive-gallery { grid-template-columns:repeat(4,minmax(0,1fr)); } }
 @media (max-width:700px) { .archive-gallery-section { margin-top:52px; }.archive-gallery { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } }
 @media (max-width:700px) { .timetable tbody td,.timetable tbody th { padding:14px 9px 14px 0; } }

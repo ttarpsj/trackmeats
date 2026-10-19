@@ -96,32 +96,14 @@
     </div>
 </section>
 
-@if (!empty($event['merchandise']))
-<section class="merchandise-section section-light" id="merchandise" aria-labelledby="merchandise-title">
-    <div class="shell">
-        <div class="section-overline"><p class="eyebrow">04 / Merchandise</p><p class="eyebrow">Limited event editions</p></div>
-        <h2 class="section-title" id="merchandise-title">{{ $event['merchandise']['title'] }}</h2>
-        <div class="merchandise">
-            @foreach ($event['merchandise']['paragraphs'] as $paragraph)<p>{{ $paragraph }}</p>@endforeach
-            <div class="merchandise-carousel" data-merchandise-carousel>
-                <div class="merchandise-viewport" data-merchandise-viewport>
-                    @foreach ($event['merchandise']['images'] as $image)<figure class="merchandise-slide"><img src="{{ site_url($image['path']) }}" alt="{{ $image['alt'] }}" width="1024" height="1280" loading="lazy"></figure>@endforeach
-                </div>
-                <div class="merchandise-controls"><button type="button" data-merchandise-previous aria-label="Previous merchandise image">←</button><button type="button" data-merchandise-next aria-label="Next merchandise image">→</button></div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif
-
 <section class="results section-light" id="results" aria-labelledby="results-title">
-    <div class="shell results-layout"><div><p class="eyebrow">05 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Results &amp; Records. Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<div class="archive-entry"><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span></div>@endforeach</div></div>
+    <div class="shell results-layout"><div><p class="eyebrow">04 / The archive</p><h2 class="section-title" id="results-title">Past the<br>finish line.</h2><p class="muted">Results &amp; Records. Sample editions. Fictional performances.<br>No official records or verified results.</p></div><div class="archive">@foreach ($event['past_results'] as $edition)<div class="archive-entry"><span class="archive-year">{{ $edition['year'] }}</span><span>{{ $edition['summary'] }}<small>Demo results</small></span></div>@endforeach</div></div>
 </section>
 
 @if (!empty($event['archive_gallery']))
 <section class="gallery-section section-light" id="gallery" aria-labelledby="archive-gallery-title">
     <div class="shell archive-gallery-section">
-        <p class="eyebrow">06 / Gallery</p>
+        <p class="eyebrow">05 / Gallery</p>
         <h2 id="archive-gallery-title">{{ $event['archive_gallery']['title'] }}</h2>
         <div class="archive-gallery" aria-label="Visual archive">
             @foreach ($event['archive_gallery']['tiles'] as $tile)
