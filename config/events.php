@@ -2,6 +2,19 @@
 
 // Single-event content. Dates, venue, entries and results are illustrative.
 // Asset paths are relative to public/. Optional URLs stay null until configured.
+$galleryTiles = array_fill(0, 12, ['media' => []]);
+$galleryImages = array_filter(glob(public_path('images/gallery/*')) ?: [], static fn (string $path): bool =>
+    is_file($path) && in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp', 'avif', 'gif'], true)
+);
+sort($galleryImages, SORT_NATURAL | SORT_FLAG_CASE);
+
+foreach ($galleryImages as $index => $path) {
+    $galleryTiles[$index % count($galleryTiles)]['media'][] = [
+        'path' => 'images/gallery/'.basename($path),
+        'alt' => 'Track Meats gallery image '.($index + 1),
+    ];
+}
+
 return [
     'brand' => 'Track Meats',
     'name' => 'Track Meats',
@@ -103,10 +116,7 @@ return [
     'archive_gallery' => [
         'title' => 'Gallery',
         'placeholder_colors' => ['#b34a28', '#111210', '#777970', '#d5d4cd', '#f5f4ef'],
-        'tiles' => [
-            ['media' => []], ['media' => []], ['media' => []], ['media' => []], ['media' => []], ['media' => []],
-            ['media' => []], ['media' => []], ['media' => []], ['media' => []], ['media' => []], ['media' => []],
-        ],
+        'tiles' => $galleryTiles,
     ],
     'media' => [
         ['title' => 'Press accreditation', 'body' => 'A considered place for the people who tell the story. A future accreditation form would collect publication details, assignment information and access requirements. Applications are not open in this demo.'],
